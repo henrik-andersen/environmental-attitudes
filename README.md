@@ -9,7 +9,7 @@ Chemnitz University of Technology
 
 This is a panel data investigation of the effect of environmental attitudes on pro-environment behaviour. An early concept of this article is found in Mayerl & Andersen (2018) [[1]](#1)  was presented at the [14th Conference of the European Sociological Association](https://www.researchgate.net/publication/337673922_The_Application_of_Panel_Regression_in_the_Structural_Equation_Modeling_Framework_to_Assess_Relationships_between_Environmental_Values_and_Attitudes) in August 2019. 
 
-The investigation uses six waves (2013--2019) of the GESIS Panel [[2]](#2). 
+The investigation uses six waves (2013-2018) of the GESIS Panel [[2]](#2). 
 
 ## Contact
 
