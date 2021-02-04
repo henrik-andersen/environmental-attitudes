@@ -19,7 +19,7 @@ rm(list = ls())
 
 # getwd()
 dfw <- readRDS("r-files/dfw.Rda")
-# head(dfw)
+head(dfw)
 
 
 # Regression models -------------------------------------------------------

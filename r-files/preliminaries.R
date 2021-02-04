@@ -4,18 +4,14 @@
 ### Author: Henrik K. Andersen 
 ### ==================================================== ## 
 
+rm(list = ls())
+
 # Read merged data 
 df <- readRDS("r-files/datc.Rda")
 
 # head(df)[, 1:10]
 
-
-# Overview of variables of interest ---------------------------------------
-
-# Person ID
-# z000001a
-
-# --- Demography/controls? 
+# Recode sex and age ------------------------------------------------------
 
 # a11d054a, bfzh069a, cfzh071a, d11d054a, dfzh037a, efzh031a, f119054a, ffzh031a
 # Gender
@@ -61,183 +57,13 @@ df$yob <- df$a11d056b; table(df$yob); sum(table(df$yob))
 df$yob <- ifelse(is.na(df$yob), df$d11d056b, df$yob); table(df$yob); sum(table(df$yob))
 df$yob <- ifelse(is.na(df$yob), df$f11d056b, df$yob); table(df$yob); sum(table(df$yob)); length(df$z000001a)
 
-# German citizenship
-# Do you possess the German citizenship?
-# 1: Yes
-# 2: No
-# Missings: < 0 
 
-
-# ---
-# First 10 columns of dataframe are IDs, study numbers and weights
-# --- 
-
-#     Klimaschutzpolitik -- Ökostrom
-# bc: 34                 -- 45
-# cc: 31                 -- 41
-# dc: 31                 -- 41
-# ec: 31                 -- 41
-# fc: 31                 -- 41
-# gc: 31                 -- 41
-
-
-# --- Attitudes towards climate change 
-
-# bczd034a, XXzd031a, XX = cc, dc, ec, fc, gc
-# Climate protection policy - Pace
-# Do you think that Germany should lead the way in climate politics, or adapt its pace to other countries?
-# 1: Rather precede
-# 2: Rather adapt to other countries
-# Missings: 98 (don't know), < 0
-summary(df$bczd034a)
-
-# bczd035a, XXzd032a, XX = cc, dc, ec, fc, gc
-# Seriousness of climate change problem
-# How serious a problem do you think climate change is at this moment?
-# 1: Not at all serious
-# ...
-# 11: Extremely serious
-# Missings: < 0 
-summary(df$bczd035a)
-
-# --- Willingness to pay
-
-# bczd020a, XXzd017a, XX = cc, dc, ec, fc, gc 
-# How willing would you be to pay much higher prices in order to protect the environment?
-# 1: Very acceptable
-# 2: Rather acceptable
-# 3: Neither acceptable nor unacceptable
-# 4: Rather unacceptable
-# 5: Very unacceptable
-# Missings: < 0
-
-# bczd021a, XXzd018a, XX = cc, dc, ec, fc, gc
-# Willingness to pay environment: Higher taxes
-# How willing would you be to pay much higher taxes in order to protect the environment?
-# 1: Very acceptable
-# 2: Rather acceptable
-# 3: Neither acceptable nor unacceptable
-# 4: Rather unacceptable
-# 5: Very unacceptable
-# Missings: < 0
-
-# bczd022a, XXzd019a, XX = cc, dc, ec, fc, gc
-# Willingness to pay environment: Cut standard of living
-# And how willing would you be to accept cuts in your standard of living in order to protect the environment?
-# 1: Very acceptable
-# 2: Rather acceptable
-# 3: Neither acceptable nor unacceptable
-# 4: Rather unacceptable
-# 5: Very unacceptable
-# Missings: < 0
-
-
-# --- Behaviour 
-
-# bczd036a, XXzd033a, XX = cc, dc, ec, fc, gc
-# Property Public transport season ticket
-# The following questions are about mobility and transport. Do you own one or more season tickets?
-# 1: yes
-# 2: No
-# Missings: < 0 
-summary(df$bczd036a)
-
-# bczd037a, XXzd034a, XX = cc, dc, ec, fc, gc
-# Car availability
-# How ofen do you have a car at your disposal?
-# 1: Anytime
-# 2: Sometimes
-# 3: As an exception
-# 4: Not at all
-# Missings: < 0 
-summary(df$bczd037a)
-
-# bczd038a, XXzd035a, XX = cc, dc, ec, fc, gc
-# Frequency of use: Car
-# Please specify how ofen you normally use the following means of transportation. Car
-# 1: (Almost) daily
-# 2: On 1 to 3 days per week
-# 3: On 1 to 3 days per month
-# 4: Rarer 
-# 5: (Almost) never
-# Missings: < 0 
-summary(df$bczd038a)
-
-# bczd039a, XXzd036a, XX = cc, dc, ec, fc, gc
-# Frequency of use: Bike
-# Please specify how ofen you normally use the following means of transportation. Bike
-# 1: (Almost) daily
-# 2: On 1 to 3 days per week
-# 3: On 1 to 3 days per month
-# 4: Rarer 
-# 5: (Almost) never
-# Missings: < 0 
-summary(df$bczd039a)
-
-# bczd040a, XXzd037a, XX = cc, dc, ec, fc, gc
-# Frequency of use: Bus or train in the region
-# Please specify how ofen you normally use the following means of transportation. Regional bus or train
-# 1: (Almost) daily
-# 2: On 1 to 3 days per week
-# 3: On 1 to 3 days per month
-# 4: Rarer 
-# 5: (Almost) never
-# Missings: < 0 
-summary(df$bczd040a)
-
-# bczd041a, XXzd038a, XX = cc, dc, ec, fc, gc
-# Frequency of use: Train on longer distances
-# Please specify how ofen you normally use the following means of transportation. Train on longer distances
-# 1: (Almost) daily
-# 2: On 1 to 3 days per week
-# 3: On 1 to 3 days per month
-# 4: Rarer 
-# 5: (Almost) never
-# Missings: < 0 
-summary(df$bczd041a)
-
-# bczd042a
-# Usage Plane for leisure travel
-# Did you use a plane for private travel last year? By privatetravel wemean e.g. vacations or visits. Outward andreturn journey count as one trip.
-# 1: Yes, one
-# 2: Yes, more than one
-# 3: No
-# 4: No private journey
-# Missings: < 0 
-summary(df$bczd042a)
-
-# bczd043a, XXzd039a, XX = cc, dc, ec, fc, gc
-# Purchase organic groceries
-# Did you buy any organic food during the past week, that is food of controlled organic cultivation?
-# 1: No, none
-# 2: Yes, sometimes
-# 3: Yes, (almost) exclusively
-# Missings: 98 (don't know), < 0
-summary(df$bczd043a)
-
-# bczd044a, XXzd040a, XX = cc, dc, ec, fc, gc
-# Purchase regional food
-# Did you buy any fruits and vegetables from regional producers during the past week that is fruit and vegetables that was cultivated in your region?
-# 1: No, none
-# 2: Yes, sometimes
-# 3: Yes, (almost) exclusively
-# Missings: 98 (don't know), < 0
-summary(df$bczd044a)
-
-# bczd045a, XXzd041a, XX = cc, dc, ec, fc, gc
-# Purchase green energy
-# Many electricity suppliers offer green electricity from renewable energies such as solar, wind or water. Do you use green electricity or plan to do so in the future?
-# 1: A already draw benefits
-# 2: I plan to 
-# 3: Maybe in the future
-# 4: No 
-# Missings: 98 (don't know), < 0
-summary(df$bczd045a)
 
 
 # Rename variables --------------------------------------------------------
 
-# Rename bc items to conform with rest of waves
+# --- Rename bc items to conform with rest of waves
+# Klimaschutzpolitik - Tempo to Bezug Ökostrom
 df$bczd031a <- df$bczd034a 
 df$bczd032a <- df$bczd035a 
 df$bczd033a <- df$bczd036a 
@@ -249,21 +75,10 @@ df$bczd038a <- df$bczd041a
 df$bczd039a <- df$bczd043a 
 df$bczd040a <- df$bczd044a 
 df$bczd041a <- df$bczd045a 
-
+# Willingness to pay 
 df$bczd017a <- df$bczd020a
 df$bczd018a <- df$bczd021a
 df$bczd019a <- df$bczd022a
-
-# waves <- 1:6
-# vars <- 41 - 31
-# pace_vars <- paste0(rep(c("bc", "cc", "dc", "ec", "fc", "gc"), each = 1), "zd0", 31, "a")
-# pace_vars
-# head(df, n = 60)[, pace_vars]
-# 
-# df[, pace_vars] <- factor(c(df$bczd031a, df$cczd031a, df$dczd031a, df$eczd031a, df$fczd031a, df$gczd031a), 
-#                           levels = c(1, 2), labels = c("Yes", "No"))
-# 
-# head(df, n = 60)[, pace_vars]
 
 
 # Select relevant columns for smaller dataframe ---------------------------
@@ -275,16 +90,44 @@ varnames <- c("zd031a", "zd032a", "zd033a", "zd034a", "zd035a", "zd036a",
               "zd017a", "zd018a", "zd019a")
 vars <- paste0(waves, rep(varnames, each = length(waves)))
 
+# --- NEP
+# bczd005a:bczd019a (just for bc)
+# xxzd002a:xxd016a  (for the rest of the waves)
+
+# Rename bc wave
+df$bczd002a <- df$bczd005a
+df$bczd003a <- df$bczd006a
+df$bczd004a <- df$bczd007a
+df$bczd005a <- df$bczd008a
+df$bczd006a <- df$bczd009a
+df$bczd007a <- df$bczd010a
+df$bczd008a <- df$bczd011a
+df$bczd009a <- df$bczd012a
+df$bczd010a <- df$bczd013a
+df$bczd011a <- df$bczd014a
+df$bczd012a <- df$bczd015a
+df$bczd013a <- df$bczd016a
+df$bczd014a <- df$bczd017a
+df$bczd015a <- df$bczd018a
+df$bczd016a <- df$bczd019a
+
+nep_suffix <- c("zd002a", "zd003a", "zd004a", "zd005a", "zd006a", "zd007a", 
+                "zd008a", "zd009a", "zd010a", "zd011a", "zd012a", "zd013a", 
+                "zd014a", "zd015a", "zd016a")
+
+nep_vars <- paste0(waves, rep(nep_suffix, each = length(waves)))
+
 # Make new, smaller dataframe 
 dfw <- df[, 1:10]
 dfw <- cbind(dfw, df[, vars])
 dfw <- cbind(dfw, df[, c("sex", "yob")])
+dfw <- cbind(dfw, df[, nep_vars])
 
 
 # Set missings ------------------------------------------------------------
 
 dfw[dfw < 0 | dfw == 98] <- NA
-
+head(dfw)
 
 # Recodes -----------------------------------------------------------------
 
@@ -312,12 +155,17 @@ recode_func <- function(x, ncat) {
 }
 
 waves <- c("bc", "cc", "dc", "ec", "fc", "gc")
-varnames <- c("zd017a", "zd018a", "zd019a")
-vars <- paste0(waves, rep(varnames, each = length(waves)))
-vars
+wtp_varnames <- c("zd017a", "zd018a", "zd019a")
+wtp_vars <- paste0(waves, rep(wtp_varnames, each = length(waves)))
+wtp_vars
 
 # Recode willingness to pay so higher values = more willingness
-dfw[, vars] <- recode_func(dfw[, vars], ncat = 5)
+dfw[, wtp_vars] <- recode_func(dfw[, wtp_vars], ncat = 5)
+# Recode NEP so that higher values = more agreement
+dfw[, nep_vars] <- recode_func(dfw[, nep_vars], ncat = 5)
+
+
+
 
 # Make long dataframe for further cleaning --------------------------------
 
@@ -431,7 +279,7 @@ dfl_wtphrtxs <- melt(dfw,
                       variable.name = "year",
                       value.name = "wtphrtxs")
 
-# WTP: higher taxes
+# WTP: lifestyle 
 dfl_wtplfstl <- melt(dfw, 
                      id.vars = c("z000001a"),
                      measure.vars = c("bczd019a", "cczd019a", "dczd019a",
@@ -439,7 +287,125 @@ dfl_wtplfstl <- melt(dfw,
                      variable.name = "year",
                      value.name = "wtplfstl")
 
-head(dfl_wtphrprcs)
+# NEP: close to maximum number of humans
+dfl_mxhmns <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd002a", "cczd002a", "dczd002a",
+                                    "eczd002a", "fczd002a", "gczd002a"),
+                   variable.name = "year",
+                   value.name = "nep_mxhmns")
+
+# NEP: right to adapt environment to our needs                                   RECODE!! 
+dfl_adptenvrnmt <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd003a", "cczd003a", "dczd003a",
+                                    "eczd003a", "fczd003a", "gczd003a"),
+                   variable.name = "year",
+                   value.name = "nep_adptenvrnmt")
+
+# NEP: consequences human intervention
+dfl_hmintrvn <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd004a", "cczd004a", "dczd004a",
+                                    "eczd004a", "fczd004a", "gczd004a"),
+                   variable.name = "year",
+                   value.name = "nep_hmintrvn")
+
+# NEP: human ingenuity                                                           RECODE 
+dfl_hmingnty <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd005a", "cczd005a", "dczd005a",
+                                    "eczd005a", "fczd005a", "gczd005a"),
+                   variable.name = "year",
+                   value.name = "nep_hmingnty")
+
+# NEP: abuse of environment by humans
+dfl_absenvrnmnt <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd006a", "cczd006a", "dczd006a",
+                                    "eczd006a", "fczd006a", "gczd006a"),
+                   variable.name = "year",
+                   value.name = "nep_absenvrnmnt")
+
+# NEP: sufficient natural resources                                              RECODE
+dfl_sffcntrsrs <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd007a", "cczd007a", "dczd007a",
+                                    "eczd007a", "fczd007a", "gczd007a"),
+                   variable.name = "year",
+                   value.name = "nep_sffcntrsrs")
+
+# NEP: plants and animals same rights
+dfl_anmlsrghts <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd008a", "cczd008a", "dczd008a",
+                                    "eczd008a", "fczd008a", "gczd008a"),
+                   variable.name = "year",
+                   value.name = "nep_anmlsrghts")
+
+# NEP: balance of nature is stable                                               RECODE
+dfl_blncntr <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd009a", "cczd009a", "dczd009a",
+                                    "eczd009a", "fczd009a", "gczd009a"),
+                   variable.name = "year",
+                   value.name = "nep_blncntr")
+
+# NEP: humans subjected to laws of nature
+dfl_hmnatrlaws <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd010a", "cczd010a", "dczd010a",
+                                    "eczd010a", "fczd010a", "gczd010a"),
+                   variable.name = "year",
+                   value.name = "nep_hmnatrlaws")
+
+# NEP: environmental crisis exaggerated                                          RECODE 
+dfl_envcrsisexgrt <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd011a", "cczd011a", "dczd011a",
+                                    "eczd011a", "fczd011a", "gczd011a"),
+                   variable.name = "year",
+                   value.name = "nep_envcrsisexgrt")
+
+# NEP: earth like a spaceship 
+dfl_erthspcshp <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd012a", "cczd012a", "dczd012a",
+                                    "eczd012a", "fczd012a", "gczd012a"),
+                   variable.name = "year",
+                   value.name = "nep_erthspcshp")
+
+# NEP: humans rule over nature                                                   RECODE 
+dfl_hmrlntr <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd013a", "cczd013a", "dczd013a",
+                                    "eczd013a", "fczd013a", "gczd013a"),
+                   variable.name = "year",
+                   value.name = "nep_hmrlntr")
+
+# NEP: balance of nature is sensitive
+dfl_blncntrsnstv <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd014a", "cczd014a", "dczd014a",
+                                    "eczd014a", "fczd014a", "gczd014a"),
+                   variable.name = "year",
+                   value.name = "nep_blncntrsnstv")
+
+# NEP: control nature                                                            RECODE 
+dfl_cntrlntr <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd015a", "cczd015a", "dczd015a",
+                                    "eczd015a", "fczd015a", "gczd015a"),
+                   variable.name = "year",
+                   value.name = "nep_cntrlntr")
+
+# NEP: environmental disaster                                          
+dfl_envrnmtdstr <- melt(dfw, 
+                   id.vars = c("z000001a"), 
+                   measure.vars = c("bczd016a", "cczd016a", "dczd016a",
+                                    "eczd016a", "fczd016a", "gczd016a"),
+                   variable.name = "year",
+                   value.name = "nep_envrnmtdstr")
 
 year_rename_func <- function(x) {
   y <- ifelse(substr(x, start = 1, stop = 1) == "b", 2014, 
@@ -467,6 +433,23 @@ dfl_wtphrprcs$year <- year_rename_func(dfl_wtphrprcs$year)
 dfl_wtphrtxs$year <- year_rename_func(dfl_wtphrtxs$year)
 dfl_wtplfstl$year <- year_rename_func(dfl_wtplfstl$year)
 
+dfl_mxhmns$year <- year_rename_func(dfl_mxhmns$year)
+dfl_adptenvrnmt$year <- year_rename_func(dfl_adptenvrnmt$year)
+dfl_hmintrvn$year <- year_rename_func(dfl_hmintrvn$year)
+dfl_hmingnty$year <- year_rename_func(dfl_hmingnty$year)
+dfl_absenvrnmnt$year <- year_rename_func(dfl_absenvrnmnt$year)
+dfl_sffcntrsrs$year <- year_rename_func(dfl_sffcntrsrs$year)
+dfl_anmlsrghts$year <- year_rename_func(dfl_anmlsrghts$year)
+dfl_blncntr$year <- year_rename_func(dfl_blncntr$year)
+dfl_hmnatrlaws$year <- year_rename_func(dfl_hmnatrlaws$year)
+dfl_envcrsisexgrt$year <- year_rename_func(dfl_envcrsisexgrt$year)
+dfl_erthspcshp$year <- year_rename_func(dfl_erthspcshp$year)
+dfl_hmrlntr$year <- year_rename_func(dfl_hmrlntr$year)
+dfl_blncntrsnstv$year <- year_rename_func(dfl_blncntrsnstv$year)
+dfl_cntrlntr$year <- year_rename_func(dfl_cntrlntr$year)
+dfl_envrnmtdstr$year <- year_rename_func(dfl_envrnmtdstr$year)
+
+
 # Merge the long dataframes
 dfl <- merge(dfl_tmpo_clmtprtct, dfl_srs_clmtchng, by = c("z000001a", "year"))
 dfl <- merge(dfl, dfl_bstckt, by = c("z000001a", "year"))
@@ -482,10 +465,36 @@ dfl <- merge(dfl, dfl_wtphrprcs, by = c("z000001a", "year"))
 dfl <- merge(dfl, dfl_wtphrtxs, by = c("z000001a", "year"))
 dfl <- merge(dfl, dfl_wtplfstl, by = c("z000001a", "year"))
 
+dfl <- merge(dfl, dfl_mxhmns, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_adptenvrnmt, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_hmintrvn, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_hmingnty, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_absenvrnmnt, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_sffcntrsrs, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_anmlsrghts, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_blncntr, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_hmnatrlaws, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_envcrsisexgrt, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_erthspcshp, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_hmrlntr, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_blncntrsnstv, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_cntrlntr, by = c("z000001a", "year"))
+dfl <- merge(dfl, dfl_envrnmtdstr, by = c("z000001a", "year"))
+
+
+# Recode NEP variables so that they all mean: higher values more environmental concern
+dfl$nep_adptenvrnmt_r <- recode_func(dfl$nep_adptenvrnmt, 5)
+dfl$nep_hmingnty_r <- recode_func(dfl$nep_hmingnty, 5)
+dfl$nep_sffcntrsrs_r <- recode_func(dfl$nep_sffcntrsrs, 5)
+dfl$nep_blncntr_r <- recode_func(dfl$nep_blncntr, 5)
+dfl$nep_envcrsisexgrt_r <- recode_func(dfl$nep_envcrsisexgrt, 5)
+dfl$nep_hmrlntr_r <- recode_func(dfl$nep_hmrlntr, 5)
+dfl$nep_cntrlntr_r <- recode_func(dfl$nep_cntrlntr, 5)
+
 head(dfl)
 length(dfl)
 # Delete rows with NAs on all substantive variables
-dfl <- dfl[rowSums(is.na(dfl)[, 12:25]) < ncol(dfl[12:25]), ]
+dfl <- dfl[rowSums(is.na(dfl)[, 12:40]) < ncol(dfl[12:40]), ]
 
 head(dfl, n = 30)
 
@@ -504,17 +513,86 @@ vars <- c("tmpo_clmtprtct", "srs_clmtchng", "bstckt", "accscar", "usgscar",
           "usgsbike", "usgsbusrgn", "usgsbuslngrng", "shpbiomrkt", 
           "shprgnlprdct", "okoenrgy", "wtphrprcs", "wtphrtxs", "wtplfstl")
 demo_vars <- c("sex", "yob")
+nep_vars <- c("nep_mxhmns", "nep_adptenvrnmt_r", "nep_hmintrvn", "nep_hmingnty_r", 
+              "nep_absenvrnmnt", "nep_sffcntrsrs_r", "nep_anmlsrghts", "nep_blncntr_r",
+              "nep_hmnatrlaws", "nep_envcrsisexgrt_r", "nep_erthspcshp", "nep_hmrlntr_r",
+              "nep_blncntrsnstv", "nep_cntrlntr_r", "nep_envrnmtdstr")
+
 
 col_names <- c(tivars, 
                paste(rep(vars, each = length(years)), "_", years, sep = ""), 
-               demo_vars)
+               demo_vars, 
+               paste(rep(nep_vars, each = length(years)), "_", years, sep = ""))
 names(dfw) <- col_names
 head(dfw)
 
+cor(dfw$nep_absenvrnmnt_14, dfw$nep_adptenvrnmt_r_14, use = "complete.obs")
+
+# Recode NEP variables so that they all mean: higher values more environmental concern
+# ALSO IN WIDE 
+dfw$nep_adptenvrnmt_r_14 <- recode_func(dfw$nep_adptenvrnmt_r_14, 5)
+dfw$nep_adptenvrnmt_r_15 <- recode_func(dfw$nep_adptenvrnmt_r_15, 5)
+dfw$nep_adptenvrnmt_r_16 <- recode_func(dfw$nep_adptenvrnmt_r_16, 5)
+dfw$nep_adptenvrnmt_r_17 <- recode_func(dfw$nep_adptenvrnmt_r_17, 5)
+dfw$nep_adptenvrnmt_r_18 <- recode_func(dfw$nep_adptenvrnmt_r_18, 5)
+dfw$nep_adptenvrnmt_r_19 <- recode_func(dfw$nep_adptenvrnmt_r_19, 5)
+
+dfw$nep_hmingnty_r_14 <- recode_func(dfw$nep_hmingnty_r_14, 5)
+dfw$nep_hmingnty_r_15 <- recode_func(dfw$nep_hmingnty_r_15, 5)
+dfw$nep_hmingnty_r_16 <- recode_func(dfw$nep_hmingnty_r_16, 5)
+dfw$nep_hmingnty_r_17 <- recode_func(dfw$nep_hmingnty_r_17, 5)
+dfw$nep_hmingnty_r_18 <- recode_func(dfw$nep_hmingnty_r_18, 5)
+dfw$nep_hmingnty_r_19 <- recode_func(dfw$nep_hmingnty_r_19, 5)
+
+dfw$nep_sffcntrsrs_r_14 <- recode_func(dfw$nep_sffcntrsrs_r_14, 5)
+dfw$nep_sffcntrsrs_r_15 <- recode_func(dfw$nep_sffcntrsrs_r_15, 5)
+dfw$nep_sffcntrsrs_r_16 <- recode_func(dfw$nep_sffcntrsrs_r_16, 5)
+dfw$nep_sffcntrsrs_r_17 <- recode_func(dfw$nep_sffcntrsrs_r_17, 5)
+dfw$nep_sffcntrsrs_r_18 <- recode_func(dfw$nep_sffcntrsrs_r_18, 5)
+dfw$nep_sffcntrsrs_r_19 <- recode_func(dfw$nep_sffcntrsrs_r_19, 5)
+
+dfw$nep_blncntr_r_14 <- recode_func(dfw$nep_blncntr_r_14, 5)
+dfw$nep_blncntr_r_15 <- recode_func(dfw$nep_blncntr_r_15, 5)
+dfw$nep_blncntr_r_16 <- recode_func(dfw$nep_blncntr_r_16, 5)
+dfw$nep_blncntr_r_17 <- recode_func(dfw$nep_blncntr_r_17, 5)
+dfw$nep_blncntr_r_18 <- recode_func(dfw$nep_blncntr_r_18, 5)
+dfw$nep_blncntr_r_19 <- recode_func(dfw$nep_blncntr_r_19, 5)
+
+dfw$nep_envcrsisexgrt_r_14 <- recode_func(dfw$nep_envcrsisexgrt_r_14, 5)
+dfw$nep_envcrsisexgrt_r_15 <- recode_func(dfw$nep_envcrsisexgrt_r_15, 5)
+dfw$nep_envcrsisexgrt_r_16 <- recode_func(dfw$nep_envcrsisexgrt_r_16, 5)
+dfw$nep_envcrsisexgrt_r_17 <- recode_func(dfw$nep_envcrsisexgrt_r_17, 5)
+dfw$nep_envcrsisexgrt_r_18 <- recode_func(dfw$nep_envcrsisexgrt_r_18, 5)
+dfw$nep_envcrsisexgrt_r_19 <- recode_func(dfw$nep_envcrsisexgrt_r_19, 5)
+
+dfw$nep_hmrlntr_r_14 <- recode_func(dfw$nep_hmrlntr_r_14, 5)
+dfw$nep_hmrlntr_r_15 <- recode_func(dfw$nep_hmrlntr_r_15, 5)
+dfw$nep_hmrlntr_r_16 <- recode_func(dfw$nep_hmrlntr_r_16, 5)
+dfw$nep_hmrlntr_r_17 <- recode_func(dfw$nep_hmrlntr_r_17, 5)
+dfw$nep_hmrlntr_r_18 <- recode_func(dfw$nep_hmrlntr_r_18, 5)
+dfw$nep_hmrlntr_r_19 <- recode_func(dfw$nep_hmrlntr_r_19, 5)
+
+dfw$nep_cntrlntr_r_14 <- recode_func(dfw$nep_cntrlntr_r_14, 5)
+dfw$nep_cntrlntr_r_15 <- recode_func(dfw$nep_cntrlntr_r_15, 5)
+dfw$nep_cntrlntr_r_16 <- recode_func(dfw$nep_cntrlntr_r_16, 5)
+dfw$nep_cntrlntr_r_17 <- recode_func(dfw$nep_cntrlntr_r_17, 5)
+dfw$nep_cntrlntr_r_18 <- recode_func(dfw$nep_cntrlntr_r_18, 5)
+dfw$nep_cntrlntr_r_19 <- recode_func(dfw$nep_cntrlntr_r_19, 5)
+
+
 # Save smaller dataframe --------------------------------------------------
+
+head(dfw)
+which(colnames(dfw) == "tmpo_clmtprtct_14")
+which(colnames(dfw) == "sex")
+which(colnames(dfw) == "yob")
+which(colnames(dfw) == "nep_mxhmns_14")
+which(colnames(dfw) == "nep_envrnmtdstr_19")
+length(dfw)
+# Delete rows with NAs on all substantive variables
+dfw <- dfw[rowSums(is.na(dfw)[, c(11:94, 97:186)]) < ncol(dfw[c(11:94, 97:186)]), ]
 
 # dfw for "dataframe wide"
 saveRDS(dfw, "r-files/dfw.Rda")
 write.table(dfw, file = "r-files/dfw.csv", sep = ",", row.names = FALSE, col.names = FALSE)
 
-help(write.csv)

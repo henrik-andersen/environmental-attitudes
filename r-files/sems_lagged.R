@@ -234,11 +234,11 @@ will19 =~ wtphrprcs_19 + l2*wtphrtxs_19 + l3*wtplfstl_19
 # --- Individual effects
 eta =~ 1*will15 + 1*will16 + 1*will17 + 1*will18 + 1*will19
 # --- Regressions 
-will15 ~ beta*srs_clmtchng_14 + rho*will14
-will16 ~ beta*srs_clmtchng_15 + rho*will15
-will17 ~ beta*srs_clmtchng_16 + rho*will16
-will18 ~ beta*srs_clmtchng_17 + rho*will17
-will19 ~ beta*srs_clmtchng_18 + rho*will18
+will15 ~ beta15*srs_clmtchng_14 + rho15*will14
+will16 ~ beta16*srs_clmtchng_15 + rho16*will15
+will17 ~ beta17*srs_clmtchng_16 + rho17*will16
+will18 ~ beta18*srs_clmtchng_17 + rho18*will17
+will19 ~ beta19*srs_clmtchng_18 + rho19*will18
 # --- Correlated effects 
 eta ~~ srs_clmtchng_14 + srs_clmtchng_15 + srs_clmtchng_16 + srs_clmtchng_17 + srs_clmtchng_18 + will14
 # --- Covariances of independent variables
@@ -247,9 +247,9 @@ srs_clmtchng_15 ~~ srs_clmtchng_16 + srs_clmtchng_17 + srs_clmtchng_18
 srs_clmtchng_16 ~~ srs_clmtchng_17 + srs_clmtchng_18 
 srs_clmtchng_17 ~~ srs_clmtchng_18 
 # --- Sequential exogeneity 
-srs_clmtchng_16 ~~ gamma*will15
-srs_clmtchng_17 ~~ gamma*will15 + gamma*will16
-srs_clmtchng_18 ~~ gamma*will15 + gamma*will16 + gamma*will17
+srs_clmtchng_16 ~~ will15
+srs_clmtchng_17 ~~ will15 + will16
+srs_clmtchng_18 ~~ will15 + will16 + will17
 # --- Error covariances within variables across time
 wtphrprcs_14 ~~ wtphrprcs_15 + wtphrprcs_16 + wtphrprcs_17 + wtphrprcs_18 + wtphrprcs_19
 wtphrprcs_15 ~~ wtphrprcs_16 + wtphrprcs_17 + wtphrprcs_18 + wtphrprcs_19
